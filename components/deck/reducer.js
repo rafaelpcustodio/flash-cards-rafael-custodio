@@ -1,8 +1,10 @@
-const INITIAL_STATE = {}
+const INITIAL_STATE = {decks:[]}
 
 export default function (state = INITIAL_STATE, action) {
     switch(action.type){
-    default:
-        return state
+        case 'SAVE_DECK':
+            return{...state, decks: state.decks.concat(action.payload)}
+        default:
+            return state
     }
 }

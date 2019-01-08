@@ -1,13 +1,24 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, AsyncStorage } from 'react-native'
+import { connect } from 'react-redux'
 
 import {purple, gray, white} from './../../utils/colors'
+import {saveNewDeck} from './actions'
 
-export default class NewDeckView extends React.Component {
+class NewDeckView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {text: ''};
   }
+
+  handleInputDeckNameChanges(event) {
+    this.setState({ text: event })
+  }
+
+  onSubmit(){
+    this.props.saveNewDeckAction(this.state.text)
+  }
+
   render() {
     return (
         <View style={styles.rows}>
@@ -17,9 +28,9 @@ export default class NewDeckView extends React.Component {
             <TextInput
               style={styles.typeTxt}
               placeholder='Deck Title'
-              onChangeText={(text) => this.setState({text})}
+              onChangeText={(text) => this.handleInputDeckNameChanges(text)}
             />
-            <TouchableOpacity style={styles.submitButton}>
+            <TouchableOpacity style={styles.submitButton} onPress={this.onSubmit}>
               <Text style={styles.submitButtonTxt}>
                 Submit
               </Text>
@@ -67,3 +78,17 @@ const styles = StyleSheet.create({
       textAlign:'center'
     }
 })
+
+function mapDispatchToProps(dispatch) {
+  return {
+      saveNewDeckAction: (text) => dispatch(saveNewDeck(text))
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+      decks: state.decks,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeckView)
