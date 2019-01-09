@@ -2,8 +2,8 @@ import React from 'react'
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
 import { Provider } from 'react-redux'
 
-import NewDeckView from './components/deck/NewDeckView'
-import ListDecksView from './components/deck/ListDecksView'
+import NewDeckView from './components/deck/pages/NewDeckView'
+import ListDecksView from './components/deck/pages/ListDecksView'
 import store from './config/store'
 
 const TabNavigator = createBottomTabNavigator({

@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 
-import {purple, gray, white} from './../../utils/colors'
-import {saveNewDeck} from './actions'
+import {purple, gray, white} from './../../../utils/colors'
+import {saveNewDeck} from '../actions'
 
 class NewDeckView extends React.Component {
   constructor(props) {
