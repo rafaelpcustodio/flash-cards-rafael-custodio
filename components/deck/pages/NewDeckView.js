@@ -7,16 +7,29 @@ import {saveNewDeck} from '../actions'
 
 class NewDeckView extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {text: ''};
+    super(props)
+    this.state = { text: "" }
   }
 
   handleInputDeckNameChanges(event) {
+    console.log(this.state.text)
     this.setState({ text: event })
   }
 
-  onSubmit(){
-    this.props.saveNewDeckAction(this.state.text)
+  onSubmit = async () => {
+    let newDeck = {
+      title: this.state.text,
+      questions: []
+    }
+
+    //salva no asyncStorage (veja que estou usando um mergeItem ao invés de setItem. Do contrário, ele sempre apagaria o deck anterior e salvaria um novo por cima)
+    await AsyncStorage.mergeItem("deck", JSON.stringify(newDeck))
+
+    //Faz o dispatch de action (veja que é um objeto simples)
+    this.props.dispatch({
+      type: "SAVE_DECK",
+      payload: newDeck
+    })
   }
 
   render() {
@@ -27,8 +40,8 @@ class NewDeckView extends React.Component {
             </Text>
             <TextInput
               style={styles.typeTxt}
-              placeholder='Deck Title'
-              onChangeText={(text) => this.handleInputDeckNameChanges(text)}
+              placeholder="Deck Title"
+              onChangeText={text => this.handleInputDeckNameChanges(text)}
             />
             <TouchableOpacity style={styles.submitButton} onPress={this.onSubmit}>
               <Text style={styles.submitButtonTxt}>
@@ -79,16 +92,14 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapDispatchToProps(dispatch) {
-  return {
-      saveNewDeckAction: (text) => dispatch(saveNewDeck(text))
-  }
-}
-
 function mapStateToProps(state) {
+  console.log("state newDeck", state);
   return {
-      decks: state.decks,
-  }
+    decks: state.decks
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewDeckView)
+export default connect(
+  mapStateToProps,
+  null
+)(NewDeckView);

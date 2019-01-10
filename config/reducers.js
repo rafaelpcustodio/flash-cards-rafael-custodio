@@ -5,7 +5,7 @@ import cardReducer from './../components/deck/reducer'
 
 const reducers = combineReducers({
     decks: deckReducer,
-    cards: cardReducer
+    //cards: cardReducer
 })
 
 export default reducers;
