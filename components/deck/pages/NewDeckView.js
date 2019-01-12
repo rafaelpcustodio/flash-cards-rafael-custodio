@@ -12,20 +12,16 @@ class NewDeckView extends React.Component {
   }
 
   handleInputDeckNameChanges(event) {
-    console.log(this.state.text)
     this.setState({ text: event })
   }
 
   onSubmit = async () => {
     let newDeck = {
+      id:Math.random().toString(36).substr(-8),
       title: this.state.text,
-      questions: []
+      cards: []
     }
-
-    //salva no asyncStorage (veja que estou usando um mergeItem ao invés de setItem. Do contrário, ele sempre apagaria o deck anterior e salvaria um novo por cima)
     await AsyncStorage.mergeItem("deck", JSON.stringify(newDeck))
-
-    //Faz o dispatch de action (veja que é um objeto simples)
     this.props.dispatch({
       type: "SAVE_DECK",
       payload: newDeck
@@ -93,7 +89,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  console.log("state newDeck", state);
   return {
     decks: state.decks
   };

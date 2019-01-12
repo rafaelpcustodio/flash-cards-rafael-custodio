@@ -1,12 +1,11 @@
-const INITIAL_STATE = {decks:[]}
+const INITIAL_STATE = {listOfDecks:[]}
 
 export default function (state = INITIAL_STATE, action) {
     switch(action.type){
         case 'SAVE_DECK':
-            console.log('state reducer deck',state)
-            return{decks: state.decks.concat(action.payload)}
+            return{...state, listOfDecks: state.listOfDecks.concat(action.payload)}
         case 'SHOW_ALL_DECKS':
-            return{...state, decks: action.payloadd}
+            return{...state, listOfDecks: action.payload}
         default:
             return state
     }

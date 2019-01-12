@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux'
-import deckReducer from './../components/card/reducer'
-import cardReducer from './../components/deck/reducer'
+import deckReducer from './../components/deck/reducer'
+import cardReducer from './../components/card/reducer'
 
 
 const reducers = combineReducers({
-    decks: deckReducer,
-    //cards: cardReducer
+    deckState: deckReducer
 })
 
 export default reducers;

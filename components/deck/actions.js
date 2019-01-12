@@ -11,12 +11,12 @@ const saveNewDeck = async newDeck => {
 }
 
 const showAllDecks = async () => {
-    decks = await AsyncStorage.getItem('deck')
-    return (dispatch) => {
-        dispatch({
-            type: 'SHOW_ALL_DECKS',
-            payload: decks
-        })
-    }
+     return await AsyncStorage.getItem("deck")
+      .then((result) =>   {
+        return dispatch({
+            type: "GET_ALL_DECKS",
+            payload: result
+          })
+      })
 }
 export { saveNewDeck, showAllDecks }

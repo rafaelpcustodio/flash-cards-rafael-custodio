@@ -1,21 +1,41 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
+import {AsyncStorage} from 'react-native'
+
+import {showAllDecks} from '../actions'
 
 class ListDecksView extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { decks: [] }
+  }
 
-  ComponentDidMount(){
-    this.props.showAllDecksAction()
+  componentDidMount = async () => {
+    let decks = await AsyncStorage.getItem("deck")
+    this.props.dispatch({
+      type: "GET_ALL_DECKS",
+      payload: decks
+    })
   }
 
   render() {
-    const { decks } = this.props
+    const { decks: {listOfDecks} } = this.props
+    console.log('decks', this.props.decks)
+    console.log('listOfDecks', listOfDecks)
     return (
       <View>
-        <Text>Hello</Text>
-        {/* {decks && decks.map((deck)=> {
-          <Text>{deck.title}</Text>
-        })} */}
+        {listOfDecks ? listOfDecks.map((deck)=> {
+          <View>
+            <Text style={{fontSize:50}}>
+              {deck.title}
+            </Text>
+          </View>
+        }) : (
+          <Text>
+            Failure
+          </Text>
+        )}
       </View>
     )
   }
@@ -30,8 +50,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-      decks: state.decks,
+      decks: state.deckState,
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListDecksView)
+export default connect(mapStateToProps, null)(ListDecksView)
