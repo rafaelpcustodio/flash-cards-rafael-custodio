@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, AsyncStorage } fro
 import { connect } from 'react-redux'
 
 import {purple, gray, white} from './../../../utils/colors'
-import {saveNewDeck} from '../actions'
 
 class NewDeckView extends React.Component {
   constructor(props) {
@@ -87,6 +86,7 @@ const styles = StyleSheet.create({
       textAlign:'center'
     }
 })
+
 
 function mapStateToProps(state) {
   return {

@@ -1,9 +1,11 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import {bindActionCreators} from 'redux'
+import { Text, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import {AsyncStorage} from 'react-native'
+import {StyleSheet} from 'react-native'
 
-import {showAllDecks} from '../actions'
+import {showAllDecks, getDeckById} from '../actions'
+import {blue} from '../../../utils/colors'
 
 class ListDecksView extends React.Component {
   constructor(props) {
@@ -11,41 +13,69 @@ class ListDecksView extends React.Component {
     this.state = { decks: [] }
   }
 
-  componentDidMount = async () => {
-    let decks = await AsyncStorage.getItem("deck")
-    this.props.dispatch({
-      type: "GET_ALL_DECKS",
-      payload: decks
-    })
+  componentDidMount() {
+    this.props.showAllDecksAction()
   }
 
   render() {
     const { decks: {listOfDecks} } = this.props
-    console.log('decks', this.props.decks)
-    console.log('listOfDecks', listOfDecks)
     return (
-      <View>
+      <ScrollView>
         {listOfDecks ? listOfDecks.map((deck)=> {
-          <View>
-            <Text style={{fontSize:50}}>
-              {deck.title}
-            </Text>
-          </View>
+          return (
+            <TouchableOpacity
+              onPress={() => {this.props.getDeckByIdAction(deck.id)}}
+              key={deck.id}>
+                <Text style={styles.deckList}>
+                  {deck.title}
+                </Text>
+                <Text style={styles.card}>
+                  {deck.cards.length} cards
+                </Text>
+                <Text style={styles.line}/>
+            </TouchableOpacity>
+          )
         }) : (
-          <Text>
-            Failure
+          <Text style={styles.failureMessage}>
+            There are no decks. You can add your first deck on the "New Deck" button on the bottom of the screen!
           </Text>
         )}
-      </View>
+      </ScrollView>
     )
   }
 }
 
+const styles = StyleSheet.create({
+  deckList:{
+    fontSize:50,
+    alignItems:'center',
+    alignSelf:'center',
+    marginTop:40
+  },
+  failureMessage:{
+    fontSize:20,
+    alignItems:'center',
+    alignSelf:'center',
+    marginTop:200,
+    textAlign:'center',
+  },
+  card:{
+    fontSize:25,
+    alignItems:'center',
+    alignSelf:'center'
+  },
+  line:{
+    borderBottomWidth:1,
+    borderBottomColor:blue,
+    marginLeft:20,
+    marginRight:20,
+    marginTop:40
+  }
+})
+
 
 function mapDispatchToProps(dispatch) {
-  return {
-      showAllDecksAction: () => dispatch(showAllDecks())
-  }
+  return bindActionCreators({showAllDecksAction: showAllDecks, getDeckByIdAction: getDeckById}, dispatch)
 }
 
 function mapStateToProps(state) {
@@ -54,4 +84,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, null)(ListDecksView)
+export default connect(mapStateToProps, mapDispatchToProps)(ListDecksView)
