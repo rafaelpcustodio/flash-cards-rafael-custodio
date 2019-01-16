@@ -5,10 +5,10 @@ export default function (state = INITIAL_STATE, action) {
         case 'SAVE_DECK':
             console.log('action save deck - state', state)
             console.log('action save deck - payload', action.payload)
-            return{...state, listOfDecks: state.listOfDecks.concat(action.payload)}
+            return{...state, listOfDecks: [...state.listOfDecks, action.payload]}
         case 'GET_ALL_DECKS':
-            console.log('action save deck - state', state)
-            console.log('action save deck - payload', action.payload)
+            console.log('action get all deck - state', state)
+            console.log('action get all deck - payload', action.payload)
             return{...state, listOfDecks: action.payload}
         case 'GET_DECK_BY_ID':
             console.log('dentro do reducer', action.payload)

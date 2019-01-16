@@ -14,11 +14,14 @@ class ListDecksView extends React.Component {
   }
 
   componentDidMount() {
+    console.log('component did mount')
+    AsyncStorage.removeItem('deck')
     this.props.showAllDecksAction()
   }
 
   render() {
     const { decks: {listOfDecks} } = this.props
+    console.log('listOfDecks', listOfDecks)
     return (
       <ScrollView>
         {listOfDecks ? listOfDecks.map((deck)=> {

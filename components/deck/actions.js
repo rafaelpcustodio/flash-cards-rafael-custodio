@@ -1,14 +1,14 @@
 import {AsyncStorage} from 'react-native'
 
-// const saveNewDeck = async newDeck => {
-//     await AsyncStorage.setItem('deck', newDeck)
-//     return (dispatch) => {
-//         dispatch({
-//             type: 'SAVE_DECK',
-//             payload: newDeck
-//         })
-//     }
-// }
+const saveNewDeck = async newDeck => {
+    await AsyncStorage.setItem('deck', newDeck)
+    return (dispatch) => {
+        dispatch({
+            type: 'SAVE_DECK',
+            payload: newDeck
+        })
+    }
+}
 
 const showAllDecks = () => dispatch => AsyncStorage.getItem("deck")
 .then(result => dispatch({
@@ -22,4 +22,4 @@ const getDeckById = (id) => dispatch => AsyncStorage.getItem("deck")
     payload: JSON.parse(result)
 }))
 
-export {  showAllDecks, getDeckById }
+export {  showAllDecks, getDeckById, saveNewDeck }
