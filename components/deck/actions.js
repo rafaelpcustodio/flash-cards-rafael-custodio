@@ -16,10 +16,11 @@ const showAllDecks = () => dispatch => AsyncStorage.getItem("deck")
     payload: JSON.parse(result)
 }))
 
-const getDeckById = (id) => dispatch => AsyncStorage.getItem("deck")
-.then(result => dispatch({
+const getDeckById = (id) => dispatch => AsyncStorage.getItem("deck".concat(id))
+.then(result => {
+    dispatch({
     type: "GET_DECK_BY_ID",
     payload: JSON.parse(result)
-}))
+})})
 
 export {  showAllDecks, getDeckById, saveNewDeck }

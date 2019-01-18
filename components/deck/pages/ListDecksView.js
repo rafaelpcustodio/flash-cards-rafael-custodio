@@ -1,33 +1,46 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
-import { Text, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, AsyncStorage, ScrollView, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import {StyleSheet} from 'react-native'
 
 import {showAllDecks, getDeckById} from '../actions'
 import {blue} from '../../../utils/colors'
+import DeckView from './DeckView'
 
 class ListDecksView extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { decks: [] }
+    this.state = { 
+      decks: [],
+      showSpecificDeck:false
+    }
   }
 
   componentDidMount() {
     console.log('component did mount')
-    AsyncStorage.removeItem('deck')
+    //AsyncStorage.removeItem('deck')
     this.props.showAllDecksAction()
+  }
+
+  getSpecificDeck(id){
+    this.props.getDeckByIdAction(id)
+    this.setState({showSpecificDeck:true})
   }
 
   render() {
     const { decks: {listOfDecks} } = this.props
-    console.log('listOfDecks', listOfDecks)
+    console.log('listOfDecks no props do list decks', listOfDecks)
     return (
-      <ScrollView>
-        {listOfDecks ? listOfDecks.map((deck)=> {
+      this.state.showSpecificDeck ?
+      (<View>
+        <DeckView/>
+      </View>):
+      (<ScrollView>
+        {listOfDecks.length > 0 ? listOfDecks.map((deck)=> {
           return (
             <TouchableOpacity
-              onPress={() => {this.props.getDeckByIdAction(deck.id)}}
+              onPress={() => {this.getSpecificDeck(deck.id)}}
               key={deck.id}>
                 <Text style={styles.deckList}>
                   {deck.title}
@@ -43,7 +56,7 @@ class ListDecksView extends React.Component {
             There are no decks. You can add your first deck on the "New Deck" button on the bottom of the screen!
           </Text>
         )}
-      </ScrollView>
+      </ScrollView>)
     )
   }
 }

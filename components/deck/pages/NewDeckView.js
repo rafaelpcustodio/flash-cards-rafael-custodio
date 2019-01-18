@@ -20,7 +20,7 @@ class NewDeckView extends React.Component {
       title: this.state.text,
       cards: []
     }
-    await AsyncStorage.mergeItem("deck", JSON.stringify(newDeck))
+    await AsyncStorage.mergeItem("deck".concat(newDeck.id), JSON.stringify(newDeck))
     this.props.dispatch({
       type: "SAVE_DECK",
       payload: newDeck
