@@ -14,7 +14,7 @@ class DeckView extends React.Component {
   }
 
   render() {
-    console.log('props no deckVIEWWWWWWWWW', this.props)
+    console.log('PROPS DO DECK VIEW', this.props.deck)
     const { deck: {specificDeck} } = this.props
     return (
         <View style={{flex: 1}}>
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     fontSize:50,
     alignItems:'center',
     alignSelf:'center',
-    marginTop:200
+    marginTop:100
   },
   cards:{
     fontSize:50,

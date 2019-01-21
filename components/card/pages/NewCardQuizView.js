@@ -1,12 +1,111 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
+import { connect } from 'react-redux'
 
-export default class NewCardQuizView extends React.Component {
+import {purple, white} from './../../../utils/colors'
+
+class NewCardQuizView extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = { 
+      questionText: "",
+      answerText: ""
+   }
+  }
+
+  handleInputCardQuestionChanges(event) {
+    this.setState({ questionText: event })
+  }
+
+  handleInputCardAnswerChanges(event) {
+    this.setState({ answerText: event })
+  }
+
+  onSubmit = () => {
+    this.props.dispatch({
+      type: "SAVE_CARD_BY_DECK",
+      payload: {
+        id:this.props.decks.specificDeck.id,
+        question:this.state.questionText, 
+        answer:this.state.answerText
+      }
+    })
+    this.props.navigation.navigate('deckView')
+  }
+
   render() {
+    console.log('PROPS DO NEW CARD QUIZ', this.props.decks)
     return (
-        <View style={{flex: 1}}>
-            <Text>NewCardQuizView</Text>
+        <View style={styles.rows}>
+            <TextInput
+              style={styles.questionText}
+              placeholder="Card Question"
+              onChangeText={questionText => this.handleInputCardQuestionChanges(questionText)}
+            />
+            <TextInput
+              style={styles.answerText}
+              placeholder="Card Answer"
+              onChangeText={answerText => this.handleInputCardAnswerChanges(answerText)}
+            />
+            <TouchableOpacity style={styles.submitButton} onPress={this.onSubmit}>
+              <Text style={styles.submitButtonTxt}>
+                Submit
+              </Text>
+            </TouchableOpacity>
         </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  rows:{
+    alignItems:'center',
+    flex:1,
+  },
+  questionText:{
+    paddingLeft:20,
+    paddingRight:20,
+    marginTop:50,
+    borderRadius:10,
+    borderWidth:1,
+    height:30,
+    width:300,
+  },
+  answerText:{
+    paddingLeft:20,
+    paddingRight:20,
+    marginTop:50,
+    borderRadius:10,
+    borderWidth:1,
+    height:30,
+    width:300,
+  },
+  submitButton:{
+    marginTop:55,
+    padding:10,
+    paddingLeft:30,
+    paddingRight:30,
+    height:45,
+    alignSelf:'center',
+    borderRadius:10,
+    backgroundColor:purple,
+    justifyContent:'center',
+  },
+  submitButtonTxt:{
+    color:white,
+    fontSize:22,
+    textAlign:'center'
+  }
+})
+
+function mapStateToProps(state) {
+  return {
+    decks: state.deckState
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(NewCardQuizView);

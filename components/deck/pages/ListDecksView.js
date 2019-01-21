@@ -18,26 +18,19 @@ class ListDecksView extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component did mount')
-    //AsyncStorage.removeItem('deck')
     this.props.showAllDecksAction()
   }
 
   getSpecificDeck(id){
     this.props.getDeckByIdAction(id)
-    this.setState({showSpecificDeck:true})
+    this.props.navigation.navigate('deckView')
   }
 
   render() {
     const { decks: {listOfDecks} } = this.props
-    console.log('listOfDecks no props do list decks', listOfDecks)
     return (
-      this.state.showSpecificDeck ?
-      (<View>
-        <DeckView/>
-      </View>):
       (<ScrollView>
-        {listOfDecks.length > 0 ? listOfDecks.map((deck)=> {
+        {listOfDecks && listOfDecks.length > 0 ? listOfDecks.map((deck)=> {
           return (
             <TouchableOpacity
               onPress={() => {this.getSpecificDeck(deck.id)}}
@@ -66,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize:50,
     alignItems:'center',
     alignSelf:'center',
-    marginTop:40
+    marginTop:20
   },
   failureMessage:{
     fontSize:20,
