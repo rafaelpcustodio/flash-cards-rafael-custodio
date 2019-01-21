@@ -1,12 +1,20 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 
 import {purple, white} from './../../../utils/colors'
 
 class DeckView extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = { 
+      showView:''
+    }
+  }
+
   render() {
-    console.log('hello bbbbbbbbbbbbbbbbbbbb', this.props)
+    console.log('props no deckVIEWWWWWWWWW', this.props)
     const { deck: {specificDeck} } = this.props
     return (
         <View style={{flex: 1}}>
@@ -14,23 +22,25 @@ class DeckView extends React.Component {
             <View> 
               <Text style={styles.title}>{specificDeck.title}</Text>
               <Text style={styles.cards}>{specificDeck.cards.length} cards</Text>
-              <TouchableOpacity style={styles.addCardsButton} onPress={this.onSubmit}>
+              <TouchableOpacity 
+              style={styles.addCardsButton} 
+              onPress={() => this.props.navigation.navigate('addCard')}>
                 <Text style={styles.addCardsButtonTxt}>
                   Add Card
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.startQuizButton} onPress={this.onSubmit}>
+              <TouchableOpacity 
+              style={styles.startQuizButton} 
+              onPress={() => this.props.navigation.navigate('startQuiz')}>
                 <Text style={styles.startQuizButtonTxt}>
                   Start Quiz
                 </Text>
               </TouchableOpacity>
             </View>
           ) : (
-            <Text>Something is wrong. How did you get here?</Text>
+            <Text> </Text>
           )}
-            
-        </View>
-    )
+      </View>)
   }
 }
 
@@ -82,7 +92,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  console.log('state no deck View AAAAAAAAAAAAAAAAAAAAAAA', state)
   return {
       deck: state.deckState,
   }
