@@ -14,7 +14,6 @@ class DeckView extends React.Component {
   }
 
   render() {
-    console.log('PROPS DO DECK VIEW', this.props.deck)
     const { deck: {specificDeck} } = this.props
     return (
         <View style={{flex: 1}}>

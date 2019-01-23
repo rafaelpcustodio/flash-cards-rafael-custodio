@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, Text, AsyncStorage, View, TouchableOpacity, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 
 import {purple, white} from './../../../utils/colors'
@@ -22,20 +22,27 @@ class NewCardQuizView extends React.Component {
     this.setState({ answerText: event })
   }
 
-  onSubmit = () => {
+  onSubmit = async () => {
+    const payload = {
+      id_parent:this.props.decks.specificDeck.id,
+      question:this.state.questionText, 
+      answer:this.state.answerText
+    }
     this.props.dispatch({
       type: "SAVE_CARD_BY_DECK",
-      payload: {
-        id:this.props.decks.specificDeck.id,
-        question:this.state.questionText, 
-        answer:this.state.answerText
-      }
+      payload: payload
     })
+    const deckToBeMerged = {
+      ...this.props.decks.specificDeck, 
+      cards:[...this.props.decks.specificDeck.cards, payload]
+    }
+    await AsyncStorage
+    .mergeItem("deck".concat(this.props.decks.specificDeck.id), 
+    JSON.stringify(deckToBeMerged))
     this.props.navigation.navigate('deckView')
   }
 
   render() {
-    console.log('PROPS DO NEW CARD QUIZ', this.props.decks)
     return (
         <View style={styles.rows}>
             <TextInput

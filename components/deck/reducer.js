@@ -9,14 +9,12 @@ export default function (state = INITIAL_STATE, action) {
         case 'GET_DECK_BY_ID':
             return{...state, specificDeck:action.payload}
         case 'SAVE_CARD_BY_DECK':
-            const passedListOfDecks = state.listOfDecks.forEach(deck => {
-                if(deck.id === action.payload.id){
-                    deck.cards.concat(action.payload)
-                }
-            })
-            const passedSpecificDeck = state.specificDeck
-            passedSpecificDeck.cards.concat(action.payload)
-            return {listOfDecks:passedListOfDecks, specificDeck:passedSpecificDeck}
+            return {specificDeck:
+                {...state.specificDeck, cards:[...state.specificDeck.cards, action.payload]}, 
+                listOfDecks: 
+                state.listOfDecks
+                .map(deck => deck.id === action.payload.id_parent 
+                    ? {...deck, cards:[...deck.cards, action.payload]}: deck)}
         default:
             return state
     }

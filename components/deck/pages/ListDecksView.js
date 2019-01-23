@@ -1,6 +1,6 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
-import { Text, AsyncStorage, ScrollView, View, TouchableOpacity } from 'react-native'
+import { Text, ScrollView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import {StyleSheet} from 'react-native'
 
