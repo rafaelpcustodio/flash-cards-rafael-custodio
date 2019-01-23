@@ -25,6 +25,7 @@ class NewDeckView extends React.Component {
       type: "SAVE_DECK",
       payload: newDeck
     })
+    this.props.navigation.navigate('deckView')
   }
 
   render() {

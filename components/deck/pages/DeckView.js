@@ -13,6 +13,10 @@ class DeckView extends React.Component {
     }
   }
 
+  componentDidMount(){
+
+  }
+
   render() {
     const { deck: {specificDeck} } = this.props
     return (

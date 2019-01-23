@@ -23,6 +23,7 @@ class NewCardQuizView extends React.Component {
   }
 
   onSubmit = async () => {
+    
     const payload = {
       id_parent:this.props.decks.specificDeck.id,
       question:this.state.questionText, 

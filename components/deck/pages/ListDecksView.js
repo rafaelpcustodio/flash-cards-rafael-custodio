@@ -1,12 +1,11 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
-import { Text, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, ScrollView, TouchableOpacity, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import {StyleSheet} from 'react-native'
 
 import {showAllDecks, getDeckById} from '../actions'
 import {blue} from '../../../utils/colors'
-import DeckView from './DeckView'
 
 class ListDecksView extends React.Component {
   constructor(props) {

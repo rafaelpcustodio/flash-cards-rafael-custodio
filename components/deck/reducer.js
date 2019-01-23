@@ -3,7 +3,9 @@ const INITIAL_STATE = {listOfDecks:[], specificDeck:{}}
 export default function (state = INITIAL_STATE, action) {
     switch(action.type){
         case 'SAVE_DECK':
-            return{...state, listOfDecks: [...state.listOfDecks, action.payload], specificDeck:{}}
+            return{...state, 
+                listOfDecks: [...state.listOfDecks, action.payload], 
+                specificDeck:action.payload}
         case 'GET_ALL_DECKS':
             return{...state, listOfDecks: action.payload || [], specificDeck:{}}
         case 'GET_DECK_BY_ID':
