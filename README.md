@@ -12,7 +12,8 @@ To start API:
 
 It works solely in android.
 
-Obs: If you wanna teste notifications uncomment line 43 at App.js component.
+Obs: If you wanna test notifications:
+* uncomment line 43 at App.js component.
 
 libraries:
 * expo
