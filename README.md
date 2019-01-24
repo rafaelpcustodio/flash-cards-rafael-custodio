@@ -4,7 +4,7 @@ Project Title:
 
 These instructions will get you a copy of the project up and running on your local machine for development.
 
-To initiat API:
+To start API:
 
 * cd flash-cards-rafael-custodio
 * sudo yarn install
