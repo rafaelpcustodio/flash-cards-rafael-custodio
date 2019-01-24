@@ -11,3 +11,10 @@ To start API:
 * sudo yarn start
 
 It works solely in android.
+
+Obs: If you wanna teste notifications uncomment line 43 at App.js component.
+
+libraries:
+* expo
+* redux-thunk
+* redux-devtools-extension
