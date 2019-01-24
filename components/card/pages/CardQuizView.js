@@ -6,6 +6,7 @@ import {red, white, green, gray, purple} from './../../../utils/colors'
 import Question from '../components/Question'
 import Answer from '../components/Answer'
 import AnswerText from '../components/AnswerText'
+import { clearLocalNotification } from '../../../utils/helper'
 
 class CardQuizView extends React.Component {
 
@@ -27,6 +28,7 @@ class CardQuizView extends React.Component {
     if(this.state.index < this.props.decks.specificDeck.cards.length - 1){
       this.setState({index:this.state.index + 1})
     }else if(this.state.index === this.props.decks.specificDeck.cards.length - 1){
+      clearLocalNotification()
       this.setState({correctAnswers: this.state.correctAnswers + 1})
       this.setState({scoreViewShow:true})
     }
@@ -38,6 +40,7 @@ class CardQuizView extends React.Component {
     if(this.state.index < this.props.decks.specificDeck.cards.length - 1){
       this.setState({index:this.state.index + 1})
     }else if(this.state.index === this.props.decks.specificDeck.cards.length - 1){
+      clearLocalNotification()
       this.setState({scoreViewShow:true})
     }
     this.setState({showAnswer:false})
