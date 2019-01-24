@@ -1,6 +1,6 @@
 Project Title:
 
-Flash-cards-rafael-custodio Getting Started:
+##Flash-cards-rafael-custodio Getting Started:
 
 These instructions will get you a copy of the project up and running on your local machine for development.
 
