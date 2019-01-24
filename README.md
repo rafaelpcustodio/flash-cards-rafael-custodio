@@ -6,8 +6,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 To initiat API:
 
-cd flash-cards-rafael-custodio
-sudo yarn install
-sudo yarn start
+* cd flash-cards-rafael-custodio
+* sudo yarn install
+* sudo yarn start
 
 It works solely in android.
