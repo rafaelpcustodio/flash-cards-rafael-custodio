@@ -4,8 +4,10 @@ import {  View, Text, StyleSheet  } from 'react-native'
 import {gray} from './../../../utils/colors'
 
 const Question = ({specificCard}) => {
-    if(specificCard.question){
+    if('question' in specificCard){
         return(<View><Text style={styles.question}>{specificCard.question}</Text></View>)
+    }else{
+        return(null)
     }
 }
 const styles = StyleSheet.create({

@@ -4,8 +4,13 @@ import {  View, Text, StyleSheet } from 'react-native'
 import {gray} from './../../../utils/colors'
 
 const Answer = ({specificCard, showAnswer}) => {
-    if(specificCard.answer){
-        return(showAnswer ? (<View><Text style={styles.answer}>{specificCard.answer}</Text></View>) :(null))
+    if('answer' in specificCard){
+            return(showAnswer ? (
+            <View><Text style={styles.answer}>{specificCard.answer}</Text></View>
+            ) :(null)
+        )
+    }else{
+        return (null)
     }
 }
 
